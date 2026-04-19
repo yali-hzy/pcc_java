@@ -55,8 +55,9 @@ public class CctChecker {
 
     public void checkOffline(List<Context> contexts, String methodName) {
         contextSets = new ArrayList<>(patterns.size());
-        for (Pattern pattern : patterns) {
-            contextSets.add(new ContextSet(contextSets.size(), this, pattern.freshness));
+        for (int i = 0; i < patterns.size(); i++) {
+            Pattern pattern = patterns.get(i);
+            contextSets.add(new ContextSet(i, this, pattern.freshness));
         }
 
         method = switch (methodName) {
@@ -91,8 +92,9 @@ public class CctChecker {
 
     public void checkOnline(ContextFlow contexts, String methodName) {
         contextSets = new ArrayList<>(patterns.size());
-        for (Pattern pattern : patterns) {
-            contextSets.add(new ContextSet(contextSets.size(), this, pattern.freshness));
+        for (int i = 0; i < patterns.size(); i++) {
+            Pattern pattern = patterns.get(i);
+            contextSets.add(new ContextSet(i, this, pattern.freshness));
         }
 
         method = switch (methodName) {
