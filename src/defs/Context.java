@@ -30,16 +30,16 @@ public class Context implements Comparable<Context> {
             return "POISON_CONTEXT";
         }
         return "Context(\n"
-            + "\tcategory=" + category + "\n"
-            + "\tsubject=" + subject + "\n"
-            + "\tpredicate=" + predicate + "\n"
-            + "\tobject=" + object + "\n"
-            + "\tsite=" + site + "\n"
-            + "\tlongitude=" + longitude + "\n"
-            + "\tlatitude=" + latitude + "\n"
-            + "\tspeed=" + speed + "\n"
-            + "\tlifespan=" + lifespan + "\n"
-            + "\ttimestamp=" + timestamp + "\n"
-            + ")";
+                + "\tcategory=" + category + "\n"
+                + "\tsubject=" + subject + "\n"
+                + "\tpredicate=" + predicate + "\n"
+                + "\tobject=" + object + "\n"
+                + "\tsite=" + site + "\n"
+                + "\tlongitude=" + longitude + "\n"
+                + "\tlatitude=" + latitude + "\n"
+                + "\tspeed=" + speed + "\n"
+                + "\tlifespan=" + lifespan + "\n"
+                + "\ttimestamp=" + timestamp + "\n"
+                + ")";
     }
 }

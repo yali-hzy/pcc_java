@@ -13,11 +13,13 @@ import logger.GlobalLogger;
 public final class Pcc {
     public interface PccEvaluatorListener extends Listener.Evaluator {
         void exitForall(Cct.ForallNode node, Cct.CctNode newNode);
+
         void exitExists(Cct.ExistsNode node, Cct.CctNode newNode);
     }
 
     public interface PccGeneratorListener extends Listener.Generator {
         void exitForall(Cct.ForallNode node, Cct.CctNode newNode);
+
         void exitExists(Cct.ExistsNode node, Cct.CctNode newNode);
     }
 
@@ -48,7 +50,8 @@ public final class Pcc {
         public void handleAdd(Cct cct, List<Integer> nodeList, int contextId, Context context) {
             Instant start = Instant.now();
             List<Integer> sorted = new ArrayList<>(nodeList);
-            sorted.sort((a, b) -> Integer.compare(cct.syntaxTree.nodes.get(b).depth, cct.syntaxTree.nodes.get(a).depth));
+            sorted.sort(
+                    (a, b) -> Integer.compare(cct.syntaxTree.nodes.get(b).depth, cct.syntaxTree.nodes.get(a).depth));
             for (int nodeId : sorted) {
                 adjuster.handleAdd(cct, nodeId, contextId, context);
             }
@@ -110,7 +113,8 @@ public final class Pcc {
             adjustHelper(cct.root);
         }
 
-        private void initAdjust(SyntaxTree syntaxTree, int nodeId, ContextChangeType changeType, int contextId, Context context) {
+        private void initAdjust(SyntaxTree syntaxTree, int nodeId, ContextChangeType changeType, int contextId,
+                Context context) {
             this.syntaxTreeNodeId = nodeId;
             this.contextId = contextId;
             this.context = context;
@@ -188,16 +192,22 @@ public final class Pcc {
         @Override
         public void exitForall(Cct.ForallNode node, Cct.CctNode newNode) {
             if (!newNode.truthValue && newNode.assignments != null) {
-                var one = java.util.List.of(new collection.LinksModel.Assignment(newNode.assignments.assignment.varId, newNode.assignments.assignment.ctx));
-                node.links = node.links.union(new collection.LinksModel.Links(java.util.List.of(new collection.LinksModel.Link(collection.LinksModel.LinkType.VIOLATED, one))).product(newNode.links));
+                var one = java.util.List.of(new collection.LinksModel.Assignment(newNode.assignments.assignment.varId,
+                        newNode.assignments.assignment.ctx));
+                node.links = node.links.union(new collection.LinksModel.Links(
+                        java.util.List.of(new collection.LinksModel.Link(collection.LinksModel.LinkType.VIOLATED, one)))
+                        .product(newNode.links));
             }
         }
 
         @Override
         public void exitExists(Cct.ExistsNode node, Cct.CctNode newNode) {
             if (newNode.truthValue && newNode.assignments != null) {
-                var one = java.util.List.of(new collection.LinksModel.Assignment(newNode.assignments.assignment.varId, newNode.assignments.assignment.ctx));
-                node.links = node.links.union(new collection.LinksModel.Links(java.util.List.of(new collection.LinksModel.Link(collection.LinksModel.LinkType.SATISFIED, one))).product(newNode.links));
+                var one = java.util.List.of(new collection.LinksModel.Assignment(newNode.assignments.assignment.varId,
+                        newNode.assignments.assignment.ctx));
+                node.links = node.links.union(new collection.LinksModel.Links(java.util.List
+                        .of(new collection.LinksModel.Link(collection.LinksModel.LinkType.SATISFIED, one)))
+                        .product(newNode.links));
             }
         }
     }

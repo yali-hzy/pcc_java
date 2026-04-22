@@ -3,11 +3,17 @@ package check;
 public final class Listener {
     public interface ExitListener {
         void exitForall(Cct.ForallNode node);
+
         void exitExists(Cct.ExistsNode node);
+
         void exitAnd(Cct.AndNode node);
+
         void exitOr(Cct.OrNode node);
+
         void exitImplies(Cct.ImpliesNode node);
+
         void exitNot(Cct.NotNode node);
+
         void exitBfunc(Cct.BfuncNode node);
     }
 

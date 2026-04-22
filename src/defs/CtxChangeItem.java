@@ -9,7 +9,8 @@ public class CtxChangeItem implements Comparable<CtxChangeItem> {
     public final ContextChangeType changeType;
     public final Instant timestamp;
 
-    public CtxChangeItem(int contextId, Context context, int patternId, ContextChangeType changeType, Instant timestamp) {
+    public CtxChangeItem(int contextId, Context context, int patternId, ContextChangeType changeType,
+            Instant timestamp) {
         this.contextId = contextId;
         this.context = context;
         this.patternId = patternId;

@@ -53,12 +53,12 @@ public class Pattern {
     @Override
     public String toString() {
         return "Pattern(name=" + name
-            + ", category=" + category
-            + ", subject=" + subject
-            + ", predicate=" + predicate
-            + ", object=" + object
-            + ", lifespan=" + lifespan
-            + ", site=" + site
-            + ", timestamp=" + timestamp + ")";
+                + ", category=" + category
+                + ", subject=" + subject
+                + ", predicate=" + predicate
+                + ", object=" + object
+                + ", lifespan=" + lifespan
+                + ", site=" + site
+                + ", timestamp=" + timestamp + ")";
     }
 }

@@ -11,7 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public final class DataLoader {
-    public record DataBundle(List<Context> contexts, List<Pattern> patterns, List<Constraint> constraints) {}
+    public record DataBundle(List<Context> contexts, List<Pattern> patterns, List<Constraint> constraints) {
+    }
 
     private DataLoader() {
     }

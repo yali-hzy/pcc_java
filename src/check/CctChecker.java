@@ -74,7 +74,8 @@ public class CctChecker {
                 Pattern pattern = patterns.get(i);
                 if (pattern.matches(context)) {
                     changes.add(new CtxChangeItem(num, context, i, ContextChangeType.ADD, context.timestamp));
-                    changes.add(new CtxChangeItem(num, context, i, ContextChangeType.DELETE, context.timestamp.plus(pattern.freshness)));
+                    changes.add(new CtxChangeItem(num, context, i, ContextChangeType.DELETE,
+                            context.timestamp.plus(pattern.freshness)));
                 }
             }
         }

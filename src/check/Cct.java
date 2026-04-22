@@ -128,10 +128,12 @@ public class Cct {
         }
 
         private CctNode buildHelper(SyntaxTree.SyntaxTreeNode refNode, CctNode parent, Assignment assignment) {
-            AssignmentLinkedListNode assignments = makeAssignment(parent == null ? null : parent.assignments, assignment);
+            AssignmentLinkedListNode assignments = makeAssignment(parent == null ? null : parent.assignments,
+                    assignment);
             return switch (refNode.nodeType) {
                 case FORALL, EXISTS -> {
-                    Cct.QuantifierNode node = quantifierHelper((SyntaxTree.QuantifierSyntaxTreeNode) refNode, assignments);
+                    Cct.QuantifierNode node = quantifierHelper((SyntaxTree.QuantifierSyntaxTreeNode) refNode,
+                            assignments);
                     if (node instanceof Cct.ForallNode f) {
                         listener.exitForall(f);
                     } else {
@@ -160,7 +162,8 @@ public class Cct {
             };
         }
 
-        private Cct.QuantifierNode quantifierHelper(SyntaxTree.QuantifierSyntaxTreeNode refNode, AssignmentLinkedListNode assignments) {
+        private Cct.QuantifierNode quantifierHelper(SyntaxTree.QuantifierSyntaxTreeNode refNode,
+                AssignmentLinkedListNode assignments) {
             Cct.QuantifierNode cctNode = switch (refNode.nodeType) {
                 case FORALL -> new Cct.ForallNode(refNode, assignments);
                 case EXISTS -> new Cct.ExistsNode(refNode, assignments);
@@ -170,7 +173,8 @@ public class Cct {
             if (patternNo != -1) {
                 var contextSet = checker.contextSets.get(patternNo).contextSet;
                 for (Map.Entry<Integer, ContextSet.ContextCounter> e : contextSet.entrySet()) {
-                    CctNode child = buildHelper(refNode.children.get(0), cctNode, new Assignment(refNode.dfn, e.getValue().context));
+                    CctNode child = buildHelper(refNode.children.get(0), cctNode,
+                            new Assignment(refNode.dfn, e.getValue().context));
                     cctNode.ctx2child.put(e.getKey(), child);
                 }
             }

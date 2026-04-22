@@ -33,7 +33,8 @@ public class ContextSet {
         synchronized (checker.mutex) {
             contextSet.put(contextId, new ContextCounter(context, 0));
             checker.addChangeNum++;
-            for (Map.Entry<Integer, java.util.List<Integer>> e : checker.patternMap.getOrDefault(id, Map.of()).entrySet()) {
+            for (Map.Entry<Integer, java.util.List<Integer>> e : checker.patternMap.getOrDefault(id, Map.of())
+                    .entrySet()) {
                 contextSet.get(contextId).count++;
                 checker.method.handleAdd(checker.ccts.get(e.getKey()), e.getValue(), contextId, context);
             }
@@ -51,7 +52,8 @@ public class ContextSet {
                 }
                 checker.deleteChangeNum++;
                 int count = removed.count;
-                for (Map.Entry<Integer, java.util.List<Integer>> e : checker.patternMap.getOrDefault(id, Map.of()).entrySet()) {
+                for (Map.Entry<Integer, java.util.List<Integer>> e : checker.patternMap.getOrDefault(id, Map.of())
+                        .entrySet()) {
                     if (count <= 0) {
                         break;
                     }

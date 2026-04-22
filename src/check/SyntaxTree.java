@@ -104,8 +104,8 @@ public final class SyntaxTree {
 
         private void insertPatternMap(int patternId, int dfn) {
             patternMap.computeIfAbsent(patternId, k -> new HashMap<>())
-                .computeIfAbsent(id, k -> new ArrayList<>())
-                .add(dfn);
+                    .computeIfAbsent(id, k -> new ArrayList<>())
+                    .add(dfn);
         }
 
         private SyntaxTreeNode syntaxBuild(Formula formula, SyntaxTreeNode parent) {
@@ -114,8 +114,10 @@ public final class SyntaxTree {
             int depth = parent == null ? 0 : parent.depth + 1;
 
             SyntaxTreeNode node = switch (formula) {
-                case Formula.Forall f -> quantifierHelper(NodeType.FORALL, currentDfn, depth, parent, f.body(), f.var(), f.inSet());
-                case Formula.Exists f -> quantifierHelper(NodeType.EXISTS, currentDfn, depth, parent, f.body(), f.var(), f.inSet());
+                case Formula.Forall f ->
+                    quantifierHelper(NodeType.FORALL, currentDfn, depth, parent, f.body(), f.var(), f.inSet());
+                case Formula.Exists f ->
+                    quantifierHelper(NodeType.EXISTS, currentDfn, depth, parent, f.body(), f.var(), f.inSet());
                 case Formula.And f -> binaryHelper(NodeType.AND, currentDfn, depth, parent, f.lhs(), f.rhs());
                 case Formula.Or f -> binaryHelper(NodeType.OR, currentDfn, depth, parent, f.lhs(), f.rhs());
                 case Formula.Implies f -> binaryHelper(NodeType.IMPLIES, currentDfn, depth, parent, f.lhs(), f.rhs());
@@ -125,14 +127,16 @@ public final class SyntaxTree {
                     for (String v : f.args()) {
                         args.add(namedVar.get(v));
                     }
-                    yield new BfuncSyntaxTreeNode(currentDfn, depth, NodeType.BFUNC, parent, new BfuncInfo(f.name(), args));
+                    yield new BfuncSyntaxTreeNode(currentDfn, depth, NodeType.BFUNC, parent,
+                            new BfuncInfo(f.name(), args));
                 }
             };
             dfn2SyntaxNode.put(currentDfn, node);
             return node;
         }
 
-        private SyntaxTreeNode quantifierHelper(NodeType nodeType, int dfn, int depth, SyntaxTreeNode parent, Formula body, String varName, String setName) {
+        private SyntaxTreeNode quantifierHelper(NodeType nodeType, int dfn, int depth, SyntaxTreeNode parent,
+                Formula body, String varName, String setName) {
             int patternNo = patternNames2Id.getOrDefault(setName, -1);
             insertPatternMap(patternNo, dfn);
             dfn2VarName.put(dfn, varName);
@@ -147,14 +151,16 @@ public final class SyntaxTree {
             return node;
         }
 
-        private SyntaxTreeNode binaryHelper(NodeType nodeType, int dfn, int depth, SyntaxTreeNode parent, Formula lhs, Formula rhs) {
+        private SyntaxTreeNode binaryHelper(NodeType nodeType, int dfn, int depth, SyntaxTreeNode parent, Formula lhs,
+                Formula rhs) {
             NormalSyntaxTreeNode node = new NormalSyntaxTreeNode(dfn, depth, nodeType, parent);
             node.children.add(syntaxBuild(lhs, node));
             node.children.add(syntaxBuild(rhs, node));
             return node;
         }
 
-        private SyntaxTreeNode unaryHelper(NodeType nodeType, int dfn, int depth, SyntaxTreeNode parent, Formula operand) {
+        private SyntaxTreeNode unaryHelper(NodeType nodeType, int dfn, int depth, SyntaxTreeNode parent,
+                Formula operand) {
             NormalSyntaxTreeNode node = new NormalSyntaxTreeNode(dfn, depth, nodeType, parent);
             node.children.add(syntaxBuild(operand, node));
             return node;

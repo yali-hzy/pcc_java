@@ -85,7 +85,8 @@ public final class Ecc {
 
         @Override
         public void exitBfunc(Cct.BfuncNode node) {
-            Map<Integer, Context> map = node.assignments == null ? new HashMap<>() : node.assignments.collectMap(node.syntaxTreeNode.depth);
+            Map<Integer, Context> map = node.assignments == null ? new HashMap<>()
+                    : node.assignments.collectMap(node.syntaxTreeNode.depth);
             SyntaxTree.BfuncSyntaxTreeNode ref = (SyntaxTree.BfuncSyntaxTreeNode) node.syntaxTreeNode;
             Context[] args = new Context[ref.bfunc.argsId.size()];
             for (int i = 0; i < ref.bfunc.argsId.size(); i++) {

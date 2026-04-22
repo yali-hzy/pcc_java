@@ -16,7 +16,8 @@ public final class ConstraintParser {
         var nodes = xml.getDocumentElement().getChildNodes();
         for (int i = 0; i < nodes.getLength(); i++) {
             Node constraintNode = nodes.item(i);
-            if (constraintNode.getNodeType() != Node.ELEMENT_NODE || !"constraint".equals(constraintNode.getNodeName())) {
+            if (constraintNode.getNodeType() != Node.ELEMENT_NODE
+                    || !"constraint".equals(constraintNode.getNodeName())) {
                 continue;
             }
             String name = constraintNode.getAttributes().getNamedItem("name").getNodeValue();
@@ -58,8 +59,10 @@ public final class ConstraintParser {
     public static Formula parseFormulaFromXml(Node node) {
         String name = node.getNodeName();
         return switch (name) {
-            case "forall" -> new Formula.Forall(attr(node, "var"), attr(node, "in"), parseFormulaFromXml(firstElementChild(node)));
-            case "exists" -> new Formula.Exists(attr(node, "var"), attr(node, "in"), parseFormulaFromXml(firstElementChild(node)));
+            case "forall" ->
+                new Formula.Forall(attr(node, "var"), attr(node, "in"), parseFormulaFromXml(firstElementChild(node)));
+            case "exists" ->
+                new Formula.Exists(attr(node, "var"), attr(node, "in"), parseFormulaFromXml(firstElementChild(node)));
             case "and" -> {
                 List<Node> children = elementChildren(node);
                 yield new Formula.And(parseFormulaFromXml(children.get(0)), parseFormulaFromXml(children.get(1)));

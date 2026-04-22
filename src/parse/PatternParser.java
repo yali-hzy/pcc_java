@@ -34,7 +34,8 @@ public final class PatternParser {
                     case "object" -> pat.object = value;
                     case "lifespan" -> pat.lifespan = value == null ? null : TimeParser.parseLifespan(value);
                     case "site" -> pat.site = value;
-                    case "timestamp" -> pat.timestamp = value == null ? null : TimeParser.parseDateTimeFromTimeStamp(value);
+                    case "timestamp" ->
+                        pat.timestamp = value == null ? null : TimeParser.parseDateTimeFromTimeStamp(value);
                     default -> throw new IllegalArgumentException("Unknown pattern field: " + child.getNodeName());
                 }
             }

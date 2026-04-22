@@ -25,7 +25,8 @@ public class Main {
         String method = options.get("method");
         int freshness = Integer.parseInt(options.get("freshness"));
         int interval = Integer.parseInt(options.get("interval"));
-        String outfile = options.getOrDefault("outfile", "context_check_" + convert + "_" + method + "_" + freshness + "_" + interval + ".log");
+        String outfile = options.getOrDefault("outfile",
+                "context_check_" + convert + "_" + method + "_" + freshness + "_" + interval + ".log");
 
         GlobalLogger.set(new Logger(options.get("outdir"), outfile));
         Common.FRESHNESS = Duration.ofSeconds(freshness);
@@ -33,7 +34,8 @@ public class Main {
         try {
             DataLoader.DataBundle bundle;
             if (options.containsKey("offline")) {
-                bundle = DataLoader.loadTaxiData(dataPath, options.get("context"), options.get("pattern"), options.get("constraint"));
+                bundle = DataLoader.loadTaxiData(dataPath, options.get("context"), options.get("pattern"),
+                        options.get("constraint"));
             } else {
                 bundle = DataLoader.loadData(dataPath);
             }
@@ -44,8 +46,8 @@ public class Main {
                 checker.checkOffline(bundle.contexts(), method);
             } else {
                 Instant startTime = options.containsKey("start_time")
-                    ? TimeParser.parseDateTimeFromTimeStamp(options.get("start_time"))
-                    : bundle.contexts().get(0).timestamp;
+                        ? TimeParser.parseDateTimeFromTimeStamp(options.get("start_time"))
+                        : bundle.contexts().get(0).timestamp;
                 GlobalTimer.set(new MockTimer(startTime));
 
                 BlockingQueue<Context> queue = new LinkedBlockingQueue<>();

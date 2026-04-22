@@ -23,7 +23,7 @@ public class Logger implements AutoCloseable {
             Files.createDirectories(logDir);
             Files.deleteIfExists(logFilePath);
             this.writer = Files.newBufferedWriter(logFilePath, StandardCharsets.UTF_8,
-                StandardOpenOption.CREATE, StandardOpenOption.WRITE);
+                    StandardOpenOption.CREATE, StandardOpenOption.WRITE);
         } catch (IOException e) {
             throw new RuntimeException("Failed to initialize logger", e);
         }
